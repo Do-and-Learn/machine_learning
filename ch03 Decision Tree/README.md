@@ -1,11 +1,11 @@
 # Decision Tree
 |&nbsp; |Can survive without coming surface?|Has flippers?|Fish?|
-|:
-|1|Yes                                |Yes          |Yes  |
-|2|Yes                                |Yes          |Yes  |
-|3|Yes                                |No           |No   |
-|4|No                                 |Yes          |No   |
-|5|No                                 |Yes          |No   |
+| ------| --------------------------------- | ----------- | --- |
+|1      |Yes                                |Yes          |Yes  |
+|2      |Yes                                |Yes          |Yes  |
+|3      |Yes                                |No           |No   |
+|4      |No                                 |Yes          |No   |
+|5      |No                                 |Yes          |No   |
 
 ```prolog
 ?- consult(training_set).
