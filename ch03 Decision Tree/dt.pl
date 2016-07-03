@@ -1,8 +1,8 @@
 classify(Type, _, Type) :- atom(Type), !.
 classify(Feature->SubTrees, Vector, Type) :-
     member(Feature = Value, Vector),
-	member(Value:Tree, SubTrees),
-	classify(Tree, Vector, Type).
+    member(Value:Tree, SubTrees),
+    classify(Tree, Vector, Type).
 
 create_tree(DataSet, Type) :-
     extract_types(DataSet, Types),
@@ -17,7 +17,7 @@ create_tree(DataSet, Feature->SubTrees) :-
     choose_best_feature_to_split(DataSet, Feature),
     extract_feature_value_set(DataSet, Feature, Values),
     findall(Value:SubTree, % Feature = Value 的決策樹為 SubTree
-	        % 以 Feature 切割，並遞迴得到 Value 分支的 SubTree
+            % 以 Feature 切割，並遞迴得到 Value 分支的 SubTree
             (member(Value, Values), split(DataSet, Splited, Feature = Value), create_tree(Splited,SubTree)),
             SubTrees).
 
@@ -28,8 +28,8 @@ shannon_entropy(DataSet, Entropy) :-
 
 l(Type, DataSet, Info) :-
     extract_types(DataSet, Types),
-	count(Type, Types, ClassCount),
-	length(Types, Amount),
+    count(Type, Types, ClassCount),
+    length(Types, Amount),
     Info is -(ClassCount/Amount)*(log(ClassCount/Amount)/log(2)).
 
 split(DataSet, Splited, Feature = Value) :-
@@ -39,7 +39,7 @@ split(DataSet, Splited, Feature = Value) :-
 choose_best_feature_to_split(DataSet, Feature) :-
     DataSet = [example(_, Features)|_],
     findall(Entropy/Feature, (member(Feature = _, Features), information_gain(DataSet, Feature, Entropy)), InfoGain),
-	sort(0, @>, InfoGain, [_/Feature|_]). % 使用 Feature 切割會得到最高的 information gain
+    sort(0, @>, InfoGain, [_/Feature|_]). % 使用 Feature 切割會得到最高的 information gain
 
 information_gain(DataSet, Feature, InfoGain) :-
     shannon_entropy(DataSet, BaseEntropy),
@@ -53,10 +53,10 @@ information_gain(DataSet, Feature, InfoGain) :-
 
 extract_feature_value_set(DataSet, Feature, Values) :-
     findall(Value, (member(example(_, Features), DataSet), member(Feature = Value,Features)), LValues),
-    list_to_set(LValues, Values).	
+    list_to_set(LValues, Values).    
 
 extract_type_set(DataSet, TypesSet) :-
-	extract_types(DataSet, Types),
+    extract_types(DataSet, Types),
     list_to_set(Types, TypesSet).
 
 extract_types(DataSet, Types) :-
